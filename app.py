@@ -5,13 +5,13 @@ app = Flask(__name__)
 
 BITTREX_API_BASE_URL = "https://api.bittrex.com/v3"
 
-# @app.route('/')
-# def get_market_summaries():
+@app.route("/market/summaries")
+def get_market_summaries():
     
-#         response = requests.get(f"{BITTREX_API_BASE_URL}/markets/summaries")
-#         return jsonify(response.json())
+        response = requests.get(f"{BITTREX_API_BASE_URL}/markets/summaries")
+        return jsonify(response.json())
    
-@app.route('/')
+@app.route("/markets/summary")
 def get_market_summary():
     market_symbol = request.args.get("market")
     response = requests.get(f"{BITTREX_API_BASE_URL}/markets/{market_symbol}/summary")
