@@ -1,0 +1,61 @@
+swagger: "2.0"
+info:
+  title: Bitrex API
+  description: API for accessing Bitrex market data
+  version: "1.0"
+host: localhost:5000
+basePath: /api/v1
+schemes:
+  - http
+securityDefinitions:
+  JWT:
+    type: apiKey
+    name: x-access-token
+    in: header
+security:
+  - JWT: []
+paths:
+  /market/summaries:
+    get:
+      summary: Get market summaries
+      description: Returns market summaries for all markets
+      operationId: getMarketSummaries
+      parameters:
+        - name: market
+          in: query
+          description: Filter by market symbol
+          type: string
+        - name: limit
+          in: query
+          description: Limit the number of results returned
+          type: integer
+      responses:
+        200:
+          description: OK
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                high:
+                  type: string
+                low:
+                  type: string
+                percentChange:
+                  type: string
+                quoteVolume:
+                  type: string
+                symbol:
+                  type: string
+                updatedAt:
+                  type: string
+                volume:
+                  type: string
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+        500:
+          description: Internal Server Error
+      security:
+        - JWT: []

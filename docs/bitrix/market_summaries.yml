@@ -1,0 +1,16 @@
+
+tags:
+  - name: market
+    description: Everything about crypto
+
+parameters:
+  -  name: x-access-tokens
+     in: header
+     type: string
+     required: True
+     description: JWT token for authorization
+responses:
+  200:
+    description: Single crypto stat
+  400:
+    description: Market symbol not provided.

@@ -1,0 +1,16 @@
+summary: Get JWT
+tags:
+  - Authentication
+parameters:
+  - name: x-access-tokens
+    in: header
+    type: string
+    required: false
+    description: JWT token for authorization
+responses:
+  200:
+    description: OK
+  401:
+    description: Token is missing or invalid
+  403:
+    description: Invalid token
