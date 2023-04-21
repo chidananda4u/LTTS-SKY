@@ -20,7 +20,7 @@ auth = Blueprint("auth", __name__, url_prefix="/api/v1/auth")
 @swag_from('./docs/auth/auth.yml')
 def generate_token():
     exp_time = datetime.utcnow() + timedelta(seconds=1800)
-    token = jwsst.encode(
+    token = jwt.encode(
         {"user": "test", "exp": exp_time},
         current_app.config["SECRET_KEY"],
         algorithm="HS256",
