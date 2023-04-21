@@ -38,12 +38,14 @@ def token_required(func):
     return decorated
 
 @app.route("/market/summaries")
+@token_required
 def get_market_summaries():
     
         response = requests.get(f"{BITTREX_API_BASE_URL}/markets/summaries")
         return jsonify(response.json())
    
 @app.route("/markets/summary")
+@token_required
 def get_market_summary():
     market_symbol = request.args.get("market")
     response = requests.get(f"{BITTREX_API_BASE_URL}/markets/{market_symbol}/summary")
