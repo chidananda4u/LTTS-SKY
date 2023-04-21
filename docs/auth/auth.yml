@@ -1,12 +1,6 @@
 summary: Get JWT
 tags:
   - Authentication
-parameters:
-  - name: x-access-tokens
-    in: header
-    type: string
-    required: false
-    description: JWT token for authorization
 responses:
   200:
     description: OK

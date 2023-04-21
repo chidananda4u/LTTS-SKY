@@ -1,41 +1,27 @@
 swagger: "2.0"
-info:
-  title: Bitrex API
-  description: API for accessing Bitrex market data
-  version: "1.0"
+tags:
+  - name: market
+    description: accepts market as query param e.g. (for ltc-btc) 
+    version: "1.0"
 host: localhost:5000
 basePath: /api/v1
 schemes:
   - http
-securityDefinitions:
-  JWT:
-    type: apiKey
-    name: x-access-token
-    in: header
-security:
-  - JWT: []
-paths:
-  /market/summaries:
-    get:
-      summary: Get market summaries
-      description: Returns market summaries for all markets
-      operationId: getMarketSummaries
-      parameters:
+parameters:
+        - name: x-access-tokens
+          in: header
+          type: string
+          required: False
+          description: JWT token for authorization
         - name: market
           in: query
           description: Filter by market symbol
           type: string
-        - name: limit
-          in: query
-          description: Limit the number of results returned
-          type: integer
-      responses:
+        
+responses:
         200:
           description: OK
           schema:
-            type: array
-            items:
-              type: object
               properties:
                 high:
                   type: string
@@ -57,5 +43,5 @@ paths:
           description: Forbidden
         500:
           description: Internal Server Error
-      security:
+security:
         - JWT: []

@@ -1,16 +1,38 @@
 
 tags:
   - name: market
-    description: Everything about crypto
+    description: all market summary 
+    version: 1.0
 
 parameters:
   -  name: x-access-tokens
      in: header
      type: string
-     required: True
+     required: False
      description: JWT token for authorization
 responses:
   200:
-    description: Single crypto stat
+    description: OK
+    schema:
+            type: array
+            items:
+              type: object
+              properties:
+                high:
+                  type: string
+                low:
+                  type: string
+                percentChange:
+                  type: string
+                quoteVolume:
+                  type: string
+                symbol:
+                  type: string
+                updatedAt:
+                  type: string
+                volume:
+                  type: string
+
+    
   400:
-    description: Market symbol not provided.
+    description: Bad request.
