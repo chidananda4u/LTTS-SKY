@@ -17,6 +17,25 @@ def generate_token():
     token = jwt.encode({"user": "test"},app.config["SECRET_KEY"],algorithm="HS256",)
     return jsonify({"token": token.decode("utf-8"), "expire": exp_time})
 
+def token_required(func):
+    @wraps(func)
+    def decorated(*args, **kwargs):
+        token = None
+
+        if "x-access-tokens" in request.headers:
+            token = request.headers["x-access-tokens"]
+        if not token:
+            return jsonify({"Alert!": "Token is missing!"})
+
+        try:
+            data = jwt.decode(token, app.config["SECRET_KEY"])
+            current_user = data["user"]
+
+        except:
+            return jsonify({"Message": "Invalid token"})
+        return func(*args, **kwargs)
+
+    return decorated
 
 @app.route("/market/summaries")
 def get_market_summaries():
