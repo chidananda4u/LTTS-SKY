@@ -10,35 +10,31 @@ template = {
             "url": "www.twitter.com/deve",
         },
         "termsOfService": "www.twitter.com/deve",
-        "version": "1.0"
+        "version": "1.0",
     },
     "basePath": "/api/v1",  # base bash for blueprint registration
-    "schemes": [
-        "http"
-        
-    ],
+    "schemes": ["http"],
     "securityDefinitions": {
         "x-access-tokens": {
             "type": "apiKey",
             "name": "Authorization",
             "in": "header",
-            "description": "JWT Authorization header using the x-access-tokens scheme. Example: \"Authorization: {token}\""
+            "description": 'JWT Authorization header using the x-access-tokens scheme. Example: "Authorization: {token}"',
         }
     },
 }
 
 swagger_config = {
-    "headers": [
-    ],
+    "headers": [],
     "specs": [
         {
-            "endpoint": 'apispec',
-            "route": '/apispec.json',
+            "endpoint": "apispec",
+            "route": "/apispec.json",
             "rule_filter": lambda rule: True,  # all in
             "model_filter": lambda tag: True,  # all in
         }
     ],
     "static_url_path": "/flasgger_static",
     "swagger_ui": True,
-    "specs_route": "/"
+    "specs_route": "/",
 }

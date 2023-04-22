@@ -3,3 +3,7 @@ requests
 PyJWT
 python-dotenv
 flasgger
+pytest
+pytest-cov
+pylint
+black

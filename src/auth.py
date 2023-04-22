@@ -4,12 +4,10 @@ from functools import wraps
 
 import jwt
 from dotenv import load_dotenv
-from flask import Blueprint, current_app, jsonify, request
 from flasgger import swag_from
-from .constants.http_status_codes import (
-    HTTP_200_OK,
-    HTTP_401_UNAUTHORIZED
-)
+from flask import Blueprint, current_app, jsonify, request
+
+from .constants.http_status_codes import HTTP_200_OK, HTTP_401_UNAUTHORIZED
 
 secret_key = os.environ.get("SECRET_KEY")
 load_dotenv()
@@ -17,8 +15,9 @@ auth = Blueprint("auth", __name__, url_prefix="/api/v1/auth")
 
 
 @auth.route("/generate_token", methods=["GET"])
-@swag_from('./docs/auth/auth.yml')
+@swag_from("./docs/auth/auth.yml")
 def generate_token():
+    """function to generate JWT token"""
     exp_time = datetime.utcnow() + timedelta(seconds=1800)
     token = jwt.encode(
         {"user": "test", "exp": exp_time},
@@ -29,8 +28,11 @@ def generate_token():
 
 
 def token_required(func):
+    """creating a decorator function to take func as param"""
+
     @wraps(func)
     def decorated(*args, **kwargs):
+        """decorator function to validate JWT in services"""
         token = None
 
         if "x-access-tokens" in request.headers:

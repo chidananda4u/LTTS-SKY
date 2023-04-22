@@ -1,7 +1,7 @@
 swagger: "2.0"
 tags:
   - name: market
-    description: accepts market as query param e.g. (for ltc-btc) 
+    description: accepts market as query param 
     version: "1.0"
 host: localhost:5000
 basePath: /api/v1
@@ -15,7 +15,7 @@ parameters:
           description: JWT token for authorization
         - name: market
           in: query
-          description: Filter by market symbol
+          description: Filter by market symbol e.g. (LTC-BTC)
           type: string
         
 responses:
@@ -39,8 +39,6 @@ responses:
                   type: string
         401:
           description: Unauthorized
-        403:
-          description: Forbidden
         500:
           description: Internal Server Error
 security:
