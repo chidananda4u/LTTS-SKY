@@ -1,3 +1,4 @@
+import json
 import os
 
 import requests
@@ -38,7 +39,18 @@ def get_market_summary():
     market_symbol = request.args.get("market")
     if not market_symbol:
         return jsonify({"error": "Market symbol not provided."}), HTTP_400_BAD_REQUEST
-    response = requests.get(
-        f"{BITTREX_API_BASE_URL}/markets/{market_symbol}/summary", timeout=30
+    response_of_summaries = requests.get(
+        "https://api.bittrex.com/v3/markets/summaries", timeout=5
     )
-    return jsonify(response.json()), HTTP_200_OK
+
+    data_dict = json.loads(response_of_summaries.content)
+    list_0f_market_symbol = []
+    for index in data_dict:
+        if index["symbol"] not in list_0f_market_symbol:
+            list_0f_market_symbol.append(index["symbol"])
+    if market_symbol in list_0f_market_symbol:
+        response = requests.get(
+            f"{BITTREX_API_BASE_URL}/markets/{market_symbol}/summary", timeout=30
+        )
+        return jsonify(response.json()), HTTP_200_OK
+    return jsonify({"code": "MARKET_DOES_NOT_EXIST"}), 404
